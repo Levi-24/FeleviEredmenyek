@@ -36,6 +36,14 @@ namespace FeleviEredmenyek
             }
             Console.WriteLine("Osztály átlagok:");
             Console.WriteLine(OsztalyAtlag(tanulok));
+            Console.WriteLine();
+            Console.WriteLine();
+            double[] xd = new double[tanulok[0].Ertekelesek.Count];
+            xd = TantargyAtlag(tanulok);
+            foreach (var item in xd)
+            {
+                Console.WriteLine(item);
+            }
             //2. feladat: Programozás gyakorlatból megbukottak adatainak kiiratása.
             //3. feladat: Írjunk függvényt, amivel keressük meg az első olyan embert, akinek hármasa van angol nyelvből, majd írjuk ki az adatait.
             //4. feladat: Kérjük be a felhasználótól, melyik tanuló legjobb jegyét szeretné megtudni.
@@ -57,6 +65,28 @@ namespace FeleviEredmenyek
             }
 
             return tanuloAtlagok.Average();
+        }
+        static double[] TantargyAtlag(List<Tanulo> tanulok)
+        {
+            //Hálózatok I.Hálózatok I.gyakorlat Programozás Programozás gyakorlat Angol nyelv Magyar nyelv és irodalom  Matematika Történelem
+            int iterator = tanulok[0].Ertekelesek.Count();
+
+            double[] tanAtlagok = new double[iterator];
+
+            foreach (var tanulo in tanulok)
+            {
+                for (int i = 0; i < iterator; i++)
+                {
+                    tanAtlagok[i] += tanulo.Ertekelesek[i];
+                }
+            }
+
+            for (int i = 0; i < iterator; i++)
+            {
+                tanAtlagok[i] = tanAtlagok[i] / iterator;
+            }
+
+            return tanAtlagok;
         }
     }
 }
