@@ -19,6 +19,7 @@ namespace FeleviEredmenyek
             var pieces = line.Split(sep.ToCharArray());
             this.Nev = pieces[0];
             this.Azonosito = double.Parse(pieces[1]);
+            Ertekelesek = new();
             for (int i = 2; i < pieces.Length ; i++)
             {
                 this.Ertekelesek.Add(int.Parse(pieces[i]));
