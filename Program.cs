@@ -34,25 +34,51 @@ namespace FeleviEredmenyek
             {
                 Console.WriteLine(TanuloAtlag(tanulo));
             }
-            Console.WriteLine("Osztály átlagok:");
+
+            Console.WriteLine();
+            Console.WriteLine("Osztály átlag:");
             Console.WriteLine(OsztalyAtlag(tanulok));
+
             Console.WriteLine();
-            Console.WriteLine();
-            double[] xd = new double[tanulok[0].Ertekelesek.Count];
-            xd = TantargyAtlag(tanulok);
-            foreach (var item in xd)
+            Console.WriteLine("Tantárgyak átlagai:");
+            double[] f1 = new double[tanulok[0].Ertekelesek.Count];
+            f1 = TantargyAtlag(tanulok);
+            foreach (var item in f1)
             {
                 Console.WriteLine(item);
             }
+
             //2. feladat: Programozás gyakorlatból megbukottak adatainak kiiratása.
+            Console.WriteLine();
+            Console.WriteLine("2.Fealdat:");
+            foreach (var tanulo in tanulok)
+            {
+                if (tanulo.Ertekelesek[3] < 2)
+                {
+                    Console.WriteLine(tanulo);
+                }
+            }
+
             //3. feladat: Írjunk függvényt, amivel keressük meg az első olyan embert, akinek hármasa van angol nyelvből, majd írjuk ki az adatait.
+            Console.WriteLine();
+            Console.WriteLine("3.Feladat:");
+            Console.WriteLine(HarmadikFeladat(tanulok));
+
             //4. feladat: Kérjük be a felhasználótól, melyik tanuló legjobb jegyét szeretné megtudni.
             //Írjuk ki az adott tanuló legjobb eredményét függvénnyel. Szorgalmi: Kezeljük a lehetséges felhasználói hibát is.
+            Console.WriteLine();
+            Console.WriteLine("4.Feladat:");
+            Console.Write("Melyik tanuló legjobb jegyét szeretné megtudni? :");
+            string name = Console.ReadLine();
+            Console.WriteLine(NegyedikFeladat(tanulok, name));
+
             //5. feladat: Egy új fájlba írjuk ki a fenti tanuló nevét és oktatási azonosítóját.
+            using StreamWriter writer = new StreamWriter(path: @"..\..\..\src\lekert_tanulo.txt", false);
+            writer.Write(tanulok.Find(t => t.Nev == name).Nev + "; " + tanulok.Find(t => t.Nev == name).Azonosito);
         }
         static double TanuloAtlag(Tanulo tanulo)
         {
-            return tanulo.Ertekelesek.Average(v => v);
+            return Math.Round(tanulo.Ertekelesek.Average(v => v), 2);
         }
         static double OsztalyAtlag(List<Tanulo> tanulok)
         {
@@ -64,11 +90,10 @@ namespace FeleviEredmenyek
                 tanuloAtlagok[i] = tanulok[i].Ertekelesek.Average(v => v);
             }
 
-            return tanuloAtlagok.Average();
+            return Math.Round(tanuloAtlagok.Average(), 2);
         }
         static double[] TantargyAtlag(List<Tanulo> tanulok)
         {
-            //Hálózatok I.Hálózatok I.gyakorlat Programozás Programozás gyakorlat Angol nyelv Magyar nyelv és irodalom  Matematika Történelem
             int iterator = tanulok[0].Ertekelesek.Count();
 
             double[] tanAtlagok = new double[iterator];
@@ -83,10 +108,19 @@ namespace FeleviEredmenyek
 
             for (int i = 0; i < iterator; i++)
             {
-                tanAtlagok[i] = tanAtlagok[i] / iterator;
+                tanAtlagok[i] = Math.Round(tanAtlagok[i] / tanulok.Count, 2);
             }
 
             return tanAtlagok;
+        }
+        static Tanulo HarmadikFeladat(List<Tanulo> tanulok)
+        {
+            return tanulok.First(t => t.Ertekelesek[4] == 3);
+        }
+        static int NegyedikFeladat(List<Tanulo> tanulok, string name)
+        {
+            Tanulo ans = tanulok.Find(t => t.Nev == name);
+            return ans.Ertekelesek.Max();
         }
     }
 }

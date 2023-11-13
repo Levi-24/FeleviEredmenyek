@@ -28,7 +28,7 @@ namespace FeleviEredmenyek
 
         public override string ToString()
         {
-            return $"{this.Nev}, {this.Azonosito}, {this.Ertekelesek}";
+            return $"{this.Nev}, {this.Azonosito}, {this.Ertekelesek[0]}, {this.Ertekelesek[1]}, {this.Ertekelesek[2]}, {this.Ertekelesek[3]}, {this.Ertekelesek[4]}, {this.Ertekelesek[5]}, {this.Ertekelesek[6]}, {this.Ertekelesek[7]},";
         }
     }
 }
