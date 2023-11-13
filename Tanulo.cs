@@ -12,6 +12,7 @@ namespace FeleviEredmenyek
         public string Nev { get; set; }
         public double Azonosito { get; set; }
         public List<int> Ertekelesek { get; set; }
+        public double Atlag => Ertekelesek.Average();
 
         public Tanulo(string line)
         {
@@ -28,7 +29,9 @@ namespace FeleviEredmenyek
 
         public override string ToString()
         {
-            return $"{this.Nev}, {this.Azonosito}, {this.Ertekelesek[0]}, {this.Ertekelesek[1]}, {this.Ertekelesek[2]}, {this.Ertekelesek[3]}, {this.Ertekelesek[4]}, {this.Ertekelesek[5]}, {this.Ertekelesek[6]}, {this.Ertekelesek[7]},";
+            string returns = $"{this.Nev}, {this.Azonosito}, ";
+            foreach (var jegy in Ertekelesek) returns += jegy + ", ";
+            return returns;
         }
     }
 }
